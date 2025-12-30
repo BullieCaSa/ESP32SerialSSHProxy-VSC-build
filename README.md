@@ -17,12 +17,9 @@ but over the network.
     `GND` | `GND`
     `/INT` | `Blue LED` (optional GPIO `5`)
 
-    Remember that the `ESP32` is using `3.3V` logic levels.
-    Connecting it to `+5V` logic level serial consoles will
-    damage your `ESP32`. Use an SN74LVC1T45DBVR or similar
-    for 3.3V <> 5V level conversion.\
-    You can also connect the `ESP32` `VBUS` pin to +5V  
-    to power the `ESP32` from the target.
+    Remember that the `ESP32` is using `3.3V` logic levels. Connecting it to `+5V` logic level serial consoles will
+    damage your `ESP32`. Use an SN74LVC1T45DBVR or similar for 3.3V <> 5V level conversion.\
+    You can also connect the `ESP32` `VBUS` pin to +5V to power the `ESP32` from the target.
 
 1. Create the file `src/credentials.hpp`:
     ```cpp
@@ -32,8 +29,7 @@ but over the network.
     #define SSHPASS "user"
     ```
 
-2. Create a folder `data` in the same location as `src`, then
-   generate `RSA` hostkeys for the `SSH` server as follows:
+2. Create a folder `data` in the same location as `src`, then generate `RSA` hostkeys for the `SSH` server as follows:
     ```
     mkdir data
     ssh-keygen -t rsa -f data/hostkey_rsa
@@ -48,12 +44,7 @@ but over the network.
     ssh -t user@esp32sshserial
     ```
     and log in using the credentials. \
-    If `esp32sshserial` doesn't work,
-    you can try appending your networks suffix,
-    or just use the IP-Address of the `ESP32`,
-    which you may find
-    in the USB Serial Console of the `ESP32` during boot,
-    or in your routers webinterface.
+    If `esp32sshserial` doesn't work, you can try appending your networks suffix, or just use the IP-Address of the `ESP32`, which you may find in the USB Serial Console of the `ESP32` during boot, or in your routers webinterface.
 
 1. Your `SSH` session is now directly connected
     with `Serial2` of the `ESP32`.
