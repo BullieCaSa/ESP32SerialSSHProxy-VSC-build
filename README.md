@@ -9,17 +9,19 @@ but over the network.
 ## Setup
 
 1. Wire up your `ESP32` to the serial console of the target:
-    TARGET | ESP32 (`UART2`)
+    TARGET | ESP32 - LOLIN D32  (`UART2`)
     -|-
     `RX` | `TX2` (GPIO `17`)
     `TX` | `RX2` (GPIO `16`)
+    `+5V` | `VBUS` (optional supply for D32)
     `GND` | `GND`
-    `3.3V` | `3.3V` (optional)
+    `/INT` | `Blue LED` (optional GPIO `5`)
 
     Remember that the `ESP32` is using `3.3V` logic levels.
-    Connecting it to `5V` logic level serial consoles
-    might damage your `ESP32`. \
-    You can also connect the `3.3V` pins
+    Connecting it to `+5V` logic level serial consoles will
+    damage your `ESP32`. Use an SN74LVC1T45DBVR or similar
+    for 3.3V <> 5V level conversion.\
+    You can also connect the `ESP32` `VBUS` pin to +5V  
     to power the `ESP32` from the target.
 
 1. Create the file `src/credentials.hpp`:
@@ -30,17 +32,18 @@ but over the network.
     #define SSHPASS "user"
     ```
 
-1. Generate `RSA` hostkeys for the `SSH` server:
-    ```sh
+2. Create a folder `data` in the same location as `src`, then
+   generate `RSA` hostkeys for the `SSH` server as follows:
+    ```
     mkdir data
     ssh-keygen -t rsa -f data/hostkey_rsa
     ```
 
-1. Upload the filesystem image to the `ESP32`
+4. From VSC `Platform>Upload Filesystem Image` to the `ESP32`
 
-1. Compile and upload the project to the `ESP32`
+5. Compile and upload the project to the `ESP32`
 
-1. Access the device using:
+6. Access the device using:
     ```sh
     ssh -t user@esp32sshserial
     ```
@@ -141,5 +144,7 @@ It needs to be in the beginning, for the color settings to apply properly.
 ## Credits
 
 Huge thanks to
+[`ESP32SerialSSHProxy`](https://github.com/programminghoch10)
+and
 [`LibSSH-ESP32`](https://github.com/ewpa/LibSSH-ESP32)
 for making this possible.
