@@ -135,7 +135,7 @@ It needs to be in the beginning, for the color settings to apply properly.
 ## Credits
 
 Huge thanks to
-[`ESP32SerialSSHProxy`](https://github.com/programminghoch10)
+[`ESP32SerialSSHProxy`](https://github.com/programminghoch10/ESP32SerialSSHProxy)
 and
 [`LibSSH-ESP32`](https://github.com/ewpa/LibSSH-ESP32)
 for making this possible.
