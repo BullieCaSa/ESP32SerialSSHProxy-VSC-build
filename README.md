@@ -1,10 +1,6 @@
-# ESP32SerialSSHProxy
+# ESP32SerialSSHProxy-VSC-build
 
-This project aims to make a serial console
-connected to the `ESP32` accessible using `SSH`.
-
-This way the `ESP32` will act like an `USB-UART-Converter`,
-but over the network.
+This project provides remote access to a serial (UART) console connected to the `ESP32`, using an `SSH` network connection.
 
 ## Setup
 
@@ -18,7 +14,7 @@ but over the network.
     `/INT` | `Blue LED` (optional GPIO `5`)
 
     Remember that the `ESP32` is using `3.3V` logic levels. Connecting it to `+5V` logic level serial consoles will
-    damage your `ESP32`. Use an SN74LVC1T45DBVR or similar for 3.3V <> 5V level conversion.\
+    damage it, so use an SN74LVC1T45DBVR or similar for 3.3V <> 5V level conversion.\
     You can also connect the `ESP32` `VBUS` pin to +5V to power the `ESP32` from the target.
 
 1. Create the file `src/credentials.hpp`:
@@ -35,13 +31,17 @@ but over the network.
     ssh-keygen -t rsa -f data/hostkey_rsa
     ```
 
-4. From VSC `Platform>Upload Filesystem Image` to the `ESP32`
+4. From VSC open the project, then execute `Platform>Upload Filesystem Image` to load the encryption keys to the `ESP32`
 
-5. Compile and upload the project to the `ESP32`
+5. Compile and upload the project to the `ESP32` using VSC commands `General>Build` and `General>upload`.  
 
-6. Access the device using:
+6. Access the device (from Windows Administrator Command Prompt) using:
     ```sh
-    ssh -t user@esp32sshserial
+    ssh -t admin@esp32sshserial
+    ```
+    or
+    ```sh
+    ssh -t admin@192.168.x.y
     ```
     and log in using the credentials. \
     If `esp32sshserial` doesn't work, you can try appending your networks suffix, or just use the IP-Address of the `ESP32`, which you may find in the USB Serial Console of the `ESP32` during boot, or in your routers webinterface.
