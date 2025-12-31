@@ -6,7 +6,7 @@ This project provides remote access to a serial (UART) console connected to the 
 
 1. Wire up your `ESP32` to the serial console of the target:
     TARGET | ESP32 - LOLIN D32  (`UART2`)
-    -|-
+    -|- 
     `RX` | `TX2` (GPIO `17`)
     `TX` | `RX2` (GPIO `16`)
     `+5V` | `VBUS` (optional supply for D32)
@@ -31,11 +31,11 @@ This project provides remote access to a serial (UART) console connected to the 
     ssh-keygen -t rsa -f data/hostkey_rsa
     ```
 
-4. From VSC open the project, then execute PlatformIO command `Platform>Upload Filesystem Image` to load the encryption keys to the `ESP32`
+3. From VSC open the project, then execute PlatformIO command `Platform>Upload Filesystem Image` to load the encryption keys to the `ESP32`
 
-5. Compile and upload the project to the `ESP32` using VSC PlatformIO commands `General>Build` and `General>upload`.  
+4. Compile and upload the project to the `ESP32` using VSC PlatformIO commands `General>Build` and `General>upload`.  
 
-6. Access the device (from Windows Administrator Command Prompt) using:
+5. Access the device (from Windows Administrator Command Prompt) using:
     ```sh
     ssh -t username@esp32sshserial
     ```
@@ -43,13 +43,12 @@ This project provides remote access to a serial (UART) console connected to the 
     ```sh
     ssh -t username@192.168.x.y
     ```
-    and log in using the credentials. \
-    If `esp32sshserial` doesn't work, you can try appending your networks suffix, or just use the IP-Address of the `ESP32`, which you may find in the USB Serial Console of the `ESP32` during boot, or in your routers webinterface.
+    and log in using the credentials created in `credentials.hpp`. If `esp32sshserial` doesn't work, you can try appending your network suffix, or use the IP address provided in the VSC Serial Monitor during `ESP32` boot.
 
-1. Your `SSH` session is now directly connected
-    with `Serial2` of the `ESP32`.
+6.  Your `SSH` session is now directly connected
+    with the `Serial2` port of the `ESP32`.
 
-1. Use `Ctrl-G` (Bell) to terminate the `SSH` connection. \
+7.  Use `Ctrl-G` (Bell) to terminate the `SSH` connection. \
     *Context*: Since `Ctrl-C` is directly forwarded
     to the serial console,
     and there is no equivalent for it on serial consoles,
@@ -134,7 +133,7 @@ It needs to be in the beginning, for the color settings to apply properly.
 
 ## Credits
 
-Huge thanks to
+All credit to 
 [`ESP32SerialSSHProxy`](https://github.com/programminghoch10/ESP32SerialSSHProxy)
 and
 [`LibSSH-ESP32`](https://github.com/ewpa/LibSSH-ESP32)
