@@ -31,9 +31,9 @@ This project provides remote access to a serial (UART) console connected to the 
     ssh-keygen -t rsa -f data/hostkey_rsa
     ```
 
-4. From VSC open the project, then execute `Platform>Upload Filesystem Image` to load the encryption keys to the `ESP32`
+4. From VSC open the project, then execute PlatformIO command `Platform>Upload Filesystem Image` to load the encryption keys to the `ESP32`
 
-5. Compile and upload the project to the `ESP32` using VSC commands `General>Build` and `General>upload`.  
+5. Compile and upload the project to the `ESP32` using VSC PlatformIO commands `General>Build` and `General>upload`.  
 
 6. Access the device (from Windows Administrator Command Prompt) using:
     ```sh
