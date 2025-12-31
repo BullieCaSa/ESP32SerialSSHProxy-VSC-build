@@ -21,8 +21,8 @@ This project provides remote access to a serial (UART) console connected to the 
     ```cpp
     #define WIFISSID "WIFI SSID"
     #define WIFIPASS "WIFI Password"
-    #define SSHUSER "user"
-    #define SSHPASS "password"
+    #define SSHUSER "SSH username"
+    #define SSHPASS "SSH password"
     ```
 
 2. Create a folder `data` in the same location as `src`, then generate `RSA` hostkeys for the `SSH` server as follows:
