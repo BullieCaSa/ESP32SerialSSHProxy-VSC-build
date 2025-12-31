@@ -22,7 +22,7 @@ This project provides remote access to a serial (UART) console connected to the 
     #define WIFISSID "WIFI SSID"
     #define WIFIPASS "WIFI Password"
     #define SSHUSER "user"
-    #define SSHPASS "user"
+    #define SSHPASS "password"
     ```
 
 2. Create a folder `data` in the same location as `src`, then generate `RSA` hostkeys for the `SSH` server as follows:
