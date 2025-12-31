@@ -21,8 +21,8 @@ This project provides remote access to a serial (UART) console connected to the 
     ```cpp
     #define WIFISSID "WIFI SSID"
     #define WIFIPASS "WIFI Password"
-    #define SSHUSER "SSH Username"
-    #define SSHPASS "SSH Password"
+    #define SSHUSER "SSH username"
+    #define SSHPASS "SSH password"
     ```
 
 2. Create a folder `data` in the same location as `src`, then generate `RSA` hostkeys for the `SSH` server as follows:
@@ -37,11 +37,11 @@ This project provides remote access to a serial (UART) console connected to the 
 
 6. Access the device (from Windows Administrator Command Prompt) using:
     ```sh
-    ssh -t admin@esp32sshserial
+    ssh -t username@esp32sshserial
     ```
     or
     ```sh
-    ssh -t admin@192.168.x.y
+    ssh -t username@192.168.x.y
     ```
     and log in using the credentials. \
     If `esp32sshserial` doesn't work, you can try appending your networks suffix, or just use the IP-Address of the `ESP32`, which you may find in the USB Serial Console of the `ESP32` during boot, or in your routers webinterface.
