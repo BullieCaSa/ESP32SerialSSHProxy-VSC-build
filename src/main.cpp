@@ -6,7 +6,9 @@
 #include <libssh_esp32.h>
 #include "credentials.hpp"
 
-#define BUF_SIZE 2048
+#define BUF_SIZE 1024  // BCSA was 2048
+#define BAUD 9600      // BCSA baud rate for target UART
+#define LED 5          // BCSA LED GPIO for Lolin D32
 
 static const uint8_t SSHPORT = 22;
 static bool authenticated = false;
@@ -14,12 +16,16 @@ static bool authenticated = false;
 void setup() {
   delay(1 * 1000);
   Serial.begin(115200);
-  Serial2.begin(115200);
+  Serial2.begin(BAUD);  // BCSA Target interface baud rate
   Serial2.setTimeout(0);
+  printf("Target port initialized at %d bps with %d byte buffer.\n", BAUD,
+         BUF_SIZE);      // BCSA
+  pinMode(LED, OUTPUT);  // BCSA LED and nINT GPIO
   esp_netif_init();
   boolean fsGood = SPIFFS.begin();
   if (!fsGood) {
     printf("%% No formatted SPIFFS filesystem found to mount.\n");
+
     printf("%% Formatting...\n");
     fsGood = SPIFFS.format();
     if (fsGood)
@@ -45,12 +51,20 @@ int ex_main();
 
 void loop() {
   // put your main code here, to run repeatedly:
+  digitalWrite(LED, LOW);  // BCSA
+  printf("LED is on\n");   // BCSA
+  delay(1 * 1000);         // BCSA
+
   int res = ex_main();
   printf("execution result: %d\n", res);
   if (res > 0) {
     printf("Rebooting due to execution error");
     ESP.restart();
   }
+
+  digitalWrite(LED, HIGH);  // BCSA
+  printf("LED is off\n");   // BCSA
+  delay(1 * 1000);          // BCSA
 }
 
 static int auth_password(const char* user, const char* password) {
@@ -136,9 +150,9 @@ int ex_main() {
     printf("Error listening to socket: %s\n", ssh_get_error(sshbind));
     return 1;
   }
-  printf("Started sample libssh sshd on port %d\n", SSHPORT);
-  printf("You can login as the user %s with the password %s\n", SSHUSER,
-         SSHPASS);
+  printf("Started libssh sshd on port %d\n", SSHPORT);  // BCSA
+  printf("Client login is user %s and password %s\n", SSHUSER,
+         SSHPASS);  // BCSA
   r = ssh_bind_accept(sshbind, session);
   if (r == SSH_ERROR) {
     printf("Error accepting a connection: %s\n", ssh_get_error(sshbind));
@@ -176,7 +190,7 @@ int ex_main() {
   } while (!chan);
 
   if (!chan) {
-    printf("Error: cleint did not ask for a channel session (%s)\n",
+    printf("Error: client did not ask for a channel session (%s)\n",  // BCSA
            ssh_get_error(session));
     ssh_finalize();
     return 1;
@@ -207,7 +221,8 @@ int ex_main() {
   }
 
   printf("Client connected!\n");
-  ssh_channel_write(chan, "Connected!\r\n", 13);
+  ssh_channel_write(chan, "Server connected! (CTRL-G to quit)\r\n",
+                    37);  // BCSA
   char sshbuf[BUF_SIZE];
   char serialbuf[BUF_SIZE];
   do {
